@@ -3,10 +3,9 @@ import { useEffect } from 'react'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Home from './pages/Home'
-import Services from './pages/Services'
-import Pricing from './pages/Pricing'
-import CaseStudies from './pages/CaseStudies'
+import Work from './pages/Work'
 import CaseStudyDetail from './pages/CaseStudyDetail'
+import Pricing from './pages/Pricing'
 import About from './pages/About'
 import Contact from './pages/Contact'
 
@@ -27,13 +26,15 @@ function AppRoutes() {
       <Nav />
       <main>
         <Routes>
-          <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-          <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
-          <Route path="/pricing" element={<PageWrapper><Pricing /></PageWrapper>} />
-          <Route path="/case-studies" element={<PageWrapper><CaseStudies /></PageWrapper>} />
+          <Route path="/"              element={<PageWrapper><Home /></PageWrapper>} />
+          <Route path="/work"          element={<PageWrapper><Work /></PageWrapper>} />
+          <Route path="/work/:slug"    element={<PageWrapper><CaseStudyDetail /></PageWrapper>} />
+          <Route path="/pricing"       element={<PageWrapper><Pricing /></PageWrapper>} />
+          <Route path="/about"         element={<PageWrapper><About /></PageWrapper>} />
+          <Route path="/contact"       element={<PageWrapper><Contact /></PageWrapper>} />
+          {/* backward compat */}
+          <Route path="/case-studies"       element={<PageWrapper><Work /></PageWrapper>} />
           <Route path="/case-studies/:slug" element={<PageWrapper><CaseStudyDetail /></PageWrapper>} />
-          <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
-          <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
         </Routes>
       </main>
       <Footer />

@@ -1,223 +1,457 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 const plans = [
   {
+    index: '01',
     tier: 'Starter',
-    price: '1,500',
-    sub: '',
-    desc: 'One-time build fee. Best for early-stage businesses getting online.',
+    price: '999',
+    priceLabel: 'one-time',
+    desc: 'Best for early-stage businesses getting a professional presence online fast.',
     features: [
-      { yes: true, text: 'Up to 5 pages' },
-      { yes: true, text: 'Mobile-responsive design' },
-      { yes: true, text: 'Contact form integration' },
-      { yes: true, text: '2 rounds of revisions' },
-      { yes: false, text: 'AI automations' },
-      { yes: false, text: 'Monthly support' },
+      'Up to 5 pages',
+      'Mobile responsive',
+      'Contact form',
+      '2 rounds of revisions',
     ],
-    cta: 'Get started',
-    popular: false,
+    cta: 'Get started →',
+    ctaParam: 'starter',
   },
   {
+    index: '02',
     tier: 'Growth',
-    price: '3,500',
-    sub: '',
-    desc: 'One-time build + optional $499/mo maintenance. Our most-chosen package.',
+    price: '2,500',
+    priceLabel: 'one-time',
+    desc: 'Our most-chosen package. Built to convert visitors into leads from day one.',
     features: [
-      { yes: true, text: 'Up to 12 pages' },
-      { yes: true, text: 'Custom design system' },
-      { yes: true, text: '2 AI automations included' },
-      { yes: true, text: 'CRM integration' },
-      { yes: true, text: 'SEO + Analytics setup' },
-      { yes: true, text: 'Unlimited revisions (30 days)' },
+      'Up to 8 pages',
+      'Custom design system',
+      'SEO foundation',
+      'CRM integration',
+      'Unlimited revisions (14 days)',
     ],
-    cta: 'Book a Call →',
-    popular: true,
+    cta: 'Get started →',
+    ctaParam: 'growth',
+    highlight: true,
   },
   {
-    tier: 'Full Transformation',
-    price: '6,500',
-    sub: '+',
-    desc: 'Custom quote. Complete digital transformation with ongoing retainer support.',
+    index: '03',
+    tier: 'Custom',
+    price: "Let's talk",
+    priceLabel: null,
+    desc: 'Complete digital transformation with automation, AI, and ongoing strategy.',
     features: [
-      { yes: true, text: 'Unlimited pages' },
-      { yes: true, text: 'Full automation stack' },
-      { yes: true, text: 'Monthly strategy calls' },
-      { yes: true, text: 'Priority support (24hr SLA)' },
-      { yes: true, text: 'Quarterly performance reviews' },
-      { yes: true, text: 'Custom integrations' },
+      'Unlimited pages',
+      'Full automation stack',
+      'AI integrations',
+      'Monthly strategy calls',
+      'Priority support',
     ],
-    cta: 'Contact us',
-    popular: false,
+    cta: 'Book a call →',
+    ctaParam: 'custom',
+    custom: true,
   },
 ]
 
 const retainerPlans = [
   {
-    tier: 'Lite',
-    price: '299',
-    desc: 'Minor updates and bug fixes. Best for stable sites.',
-    features: ['Up to 2hr changes/mo', 'Bug fixes & security patches', 'Monthly performance report'],
-    popular: false,
+    index: '01',
+    tier: 'Standard',
+    price: '99',
+    priceLabel: 'per month',
+    desc: 'Keep your site live, secure, and running smoothly every month.',
+    features: [
+      'Hosting',
+      'Bug fixes & security patches',
+      'Monthly performance report',
+      'Up to 2hr changes/mo',
+    ],
+    cta: 'Get started →',
+    ctaParam: 'retainer-standard',
   },
   {
-    tier: 'Care',
-    price: '499',
-    desc: 'Ongoing updates and support. Most popular choice.',
-    features: ['Up to 5hr changes/mo', 'Priority support', 'Monthly strategy check-in', 'SEO monitoring'],
-    popular: true,
-  },
-  {
+    index: '02',
     tier: 'Growth',
-    price: '999',
-    desc: 'Active partnership for fast-moving teams.',
-    features: ['Up to 12hr changes/mo', 'New features & A/B testing', 'Weekly check-ins', 'Analytics & CRO'],
-    popular: false,
+    price: '199',
+    priceLabel: 'per month',
+    desc: 'Everything in Standard plus proactive growth support and strategy.',
+    features: [
+      'Everything in Standard',
+      'Up to 5hr changes/mo',
+      'SEO monitoring',
+      'Monthly strategy check-in',
+    ],
+    cta: 'Get started →',
+    ctaParam: 'retainer-growth',
+    highlight: true,
+  },
+  {
+    index: '03',
+    tier: 'Custom',
+    price: "Let's talk",
+    priceLabel: null,
+    desc: 'Tailored retainer for clients needing AI workflows and custom integrations.',
+    features: [
+      'AI automation workflows',
+      'Custom integrations',
+      'Scoped per client',
+    ],
+    cta: 'Book a call →',
+    ctaParam: 'custom',
+    custom: true,
   },
 ]
 
 const faqs = [
-  { q: "What's included in the build fee?", a: "Everything you need to go from zero to a live, fully functional website or automation system. Design, development, integrations, QA, and launch are all included. Hosting is separate and typically runs $20–50/month depending on your needs." },
-  { q: "Can I cancel my monthly retainer?", a: "Yes. Monthly retainers are month-to-month with no long-term commitment. You can cancel or pause anytime with 14 days' notice." },
-  { q: "How long does a project typically take?", a: "Most projects launch within 3–4 weeks from the kickoff call. The Full Transformation track may take 5–6 weeks depending on scope. We'll give you a precise timeline in your proposal." },
-  { q: "Do you work with early-stage startups?", a: "Absolutely. Our Starter plan is designed for founders who are just getting started and need a professional online presence without a massive investment." },
-  { q: "What if I need something custom?", a: "Reach out and we'll scope it together. The Full Transformation plan is fully custom-quoted based on your specific needs. Nothing is off the table." },
-  { q: "Do you offer payment plans?", a: "Yes. For projects over $3,000 we offer a 50% upfront / 50% on launch payment split. We can also discuss monthly payment options for the right fit." },
+  {
+    q: "What's included in the build fee?",
+    a: "Design, development, integrations, QA, and launch are all included. Hosting is separate and typically runs $20–50/month depending on your needs.",
+  },
+  {
+    q: "How long does a project take?",
+    a: "Most projects launch within 3–4 weeks from the kickoff call. Custom projects may take 5–6 weeks. We'll give you a precise timeline in your proposal.",
+  },
+  {
+    q: "Can I cancel my monthly retainer?",
+    a: "Yes. Monthly retainers are month-to-month with no long-term commitment. Cancel or pause anytime with 14 days' notice.",
+  },
+  {
+    q: "Do you offer payment plans?",
+    a: "Yes. For projects over $2,000 we offer 50% upfront / 50% on launch. We can also discuss monthly payment options for the right fit.",
+  },
+  {
+    q: "Do you work with early-stage startups?",
+    a: "Absolutely. Our Starter plan is designed for founders who are just getting started and need a professional online presence without a massive investment.",
+  },
 ]
 
-function FaqItem({ q, a }) {
-  const [open, setOpen] = useState(false)
+function PricingGrid({ items }) {
+  const defaultSelected = items.findIndex(p => p.highlight)
+  const [selected, setSelected] = useState(defaultSelected >= 0 ? defaultSelected : 0)
+
   return (
-    <div className="faq-item">
-      <button className="faq-question" onClick={() => setOpen(o => !o)}>
-        {q}
-        <span style={{ fontSize: 18, flexShrink: 0 }}>{open ? '−' : '+'}</span>
-      </button>
-      {open && <p className="faq-answer">{a}</p>}
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gap: 0,
+      alignItems: 'stretch',
+      border: '1px solid var(--rule)',
+    }}>
+      {items.map((p, i) => {
+        const isSelected = selected === i
+        return (
+          <div
+            key={p.tier}
+            className={`pricing-card${isSelected ? ' pricing-card--highlight' : ''}`}
+            onClick={() => setSelected(i)}
+            style={{
+              background: isSelected ? 'var(--black)' : 'transparent',
+              padding: '36px 32px 32px',
+              display: 'flex',
+              flexDirection: 'column',
+              borderRight: i < 2 ? '1px solid var(--rule)' : 'none',
+              position: 'relative',
+            }}
+          >
+            {isSelected && (
+              <div style={{
+                position: 'absolute',
+                top: 0, left: 0, right: 0,
+                height: 3,
+                background: '#fff',
+              }} />
+            )}
+
+            {/* Label */}
+            <div style={{
+              fontSize: 10,
+              fontWeight: 600,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              color: isSelected ? 'rgba(255,255,255,0.45)' : 'var(--muted)',
+              marginBottom: 16,
+            }}>
+              {p.highlight ? 'Most popular' : p.index}
+            </div>
+
+            {/* Tier name */}
+            <div style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 22,
+              fontWeight: 700,
+              letterSpacing: '-0.02em',
+              marginBottom: 10,
+              color: isSelected ? '#fff' : 'var(--black)',
+            }}>
+              {p.tier}
+            </div>
+
+            {/* Desc */}
+            <p style={{
+              fontSize: 12,
+              lineHeight: 1.7,
+              color: isSelected ? 'rgba(255,255,255,0.5)' : 'var(--muted)',
+              marginBottom: 28,
+            }}>
+              {p.desc}
+            </p>
+
+            {/* Price */}
+            {p.custom ? (
+              <div style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 32,
+                fontWeight: 700,
+                letterSpacing: '-0.03em',
+                lineHeight: 1,
+                color: isSelected ? '#fff' : 'var(--black)',
+                marginBottom: 28,
+              }}>
+                {p.price}
+              </div>
+            ) : (
+              <>
+                <div style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 48,
+                  fontWeight: 700,
+                  letterSpacing: '-0.04em',
+                  lineHeight: 1,
+                  color: isSelected ? '#fff' : 'var(--black)',
+                  marginBottom: 4,
+                }}>
+                  <sup style={{ fontSize: 22, fontWeight: 400, verticalAlign: 'super', letterSpacing: 0 }}>$</sup>
+                  {p.price}
+                </div>
+                <div style={{
+                  fontSize: 11,
+                  color: isSelected ? 'rgba(255,255,255,0.4)' : 'var(--muted)',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
+                  marginBottom: 28,
+                }}>
+                  {p.priceLabel}
+                </div>
+              </>
+            )}
+
+            {/* Features */}
+            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 auto', flexGrow: 1 }}>
+              {p.features.map(f => (
+                <li key={f} style={{
+                  fontSize: 12,
+                  padding: '5px 0',
+                  color: isSelected ? 'rgba(255,255,255,0.75)' : 'var(--black)',
+                  display: 'flex',
+                  gap: 8,
+                  alignItems: 'flex-start',
+                }}>
+                  <span style={{
+                    color: isSelected ? 'rgba(255,255,255,0.5)' : 'var(--black)',
+                    flexShrink: 0,
+                    marginTop: 1,
+                  }}>✓</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            {/* CTA */}
+            <div style={{
+              borderTop: `1px solid ${isSelected ? 'rgba(255,255,255,0.12)' : 'var(--rule)'}`,
+              marginTop: 28,
+              paddingTop: 24,
+            }}>
+              <Link
+                to={`/contact?package=${p.ctaParam}`}
+                onClick={e => e.stopPropagation()}
+                style={{
+                  display: 'inline-block',
+                  fontSize: 13,
+                  fontWeight: 600,
+                  letterSpacing: '0.01em',
+                  color: isSelected ? '#fff' : 'var(--black)',
+                  textDecoration: 'none',
+                  borderBottom: `1px solid ${isSelected ? 'rgba(255,255,255,0.35)' : 'var(--black)'}`,
+                  paddingBottom: 2,
+                }}
+              >
+                {p.cta}
+              </Link>
+            </div>
+          </div>
+        )
+      })}
     </div>
   )
 }
 
 export default function Pricing() {
-  const [billing, setBilling] = useState('onetime')
+  const [openFaq, setOpenFaq] = useState(0)
+  const [pricingTab, setPricingTab] = useState('onetime')
 
   return (
     <>
-      {/* Page Hero */}
-      <section className="page-hero">
+      {/* ── PAGE HEADER ──────────────────────── */}
+      <section className="page-header">
         <div className="container">
-          <div className="section-label">Pricing</div>
-          <h1 className="page-hero-title">Transparent,<br />no-surprise pricing</h1>
-          <p className="page-hero-sub">One-time build fee + optional monthly retainer. No hidden costs, no scope creep, no BS.</p>
+          <div className="label">Pricing</div>
+          <h1 className="page-header-title">
+            Transparent,<br />no-surprise pricing
+          </h1>
+          <p className="page-header-sub">
+            One-time build fee + optional monthly retainer.
+            No hidden costs, no scope creep.
+          </p>
         </div>
       </section>
 
-      {/* Pricing Grid */}
-      <section className="pricing-section" style={{ background: 'var(--white)' }}>
+      {/* ── PRICING SECTION WITH TOGGLE ──────── */}
+      <section style={{ padding: '64px 0 80px' }}>
         <div className="container">
-          <div className="pricing-header">
-            <div className="pricing-toggle">
-              <div className="pricing-toggle-inner">
-                <button className={`toggle-btn${billing === 'onetime' ? ' active' : ''}`} onClick={() => setBilling('onetime')}>One-time</button>
-                <button className={`toggle-btn${billing === 'retainer' ? ' active' : ''}`} onClick={() => setBilling('retainer')}>Monthly retainer</button>
-              </div>
+
+          {/* Toggle */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 48 }}>
+            <div style={{
+              display: 'inline-flex',
+              border: '1px solid var(--black)',
+              overflow: 'hidden',
+            }}>
+              {[
+                { key: 'onetime',  label: 'One-time' },
+                { key: 'retainer', label: 'Monthly retainer' },
+              ].map(tab => (
+                <button
+                  key={tab.key}
+                  onClick={() => setPricingTab(tab.key)}
+                  style={{
+                    padding: '10px 28px',
+                    fontSize: 13,
+                    fontWeight: 600,
+                    letterSpacing: '0.02em',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'background 0.2s ease, color 0.2s ease',
+                    background: pricingTab === tab.key ? 'var(--black)' : 'transparent',
+                    color: pricingTab === tab.key ? '#fff' : 'var(--black)',
+                  }}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
           </div>
 
-          {billing === 'onetime' ? (
-            <>
-              <div className="pricing-grid">
-                {plans.map(p => (
-                  <div key={p.tier} className={`pricing-card${p.popular ? ' popular' : ''}`}>
-                    {p.popular && <div className="popular-badge">⭐ Most popular</div>}
-                    <div className="pricing-tier">{p.tier}</div>
-                    <div className="pricing-price"><sup>$</sup>{p.price}{p.sub && <sub>{p.sub}</sub>}</div>
-                    <div className="pricing-desc">{p.desc}</div>
-                    <hr className="pricing-divider" />
-                    <div className="pricing-features">
-                      {p.features.map(f => (
-                        <div key={f.text} className="pricing-feature" style={!f.yes ? { color: 'var(--gray-300)' } : {}}>
-                          <span className="feature-check" style={!f.yes ? { color: 'var(--gray-300)' } : {}}>{f.yes ? '✓' : '✗'}</span>
-                          {f.text}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="pricing-btn">
-                      <Link to="/contact">{p.cta}</Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p className="pricing-note">All plans include a <strong>free 30-minute discovery call</strong>. No commitment required.</p>
-            </>
-          ) : (
-            <>
-              <div className="pricing-grid">
-                {retainerPlans.map(p => (
-                  <div key={p.tier} className={`pricing-card${p.popular ? ' popular' : ''}`}>
-                    {p.popular && <div className="popular-badge">⭐ Most popular</div>}
-                    <div className="pricing-tier">{p.tier}</div>
-                    <div className="pricing-price"><sup>$</sup>{p.price}<sub>/mo</sub></div>
-                    <div className="pricing-desc">{p.desc}</div>
-                    <hr className="pricing-divider" />
-                    <div className="pricing-features">
-                      {p.features.map(f => (
-                        <div key={f} className="pricing-feature">
-                          <span className="feature-check">✓</span>{f}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="pricing-btn">
-                      <Link to="/contact">Get started</Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p className="pricing-note">Monthly retainers are <strong>cancel anytime</strong>. Requires an active Figure-built website.</p>
-            </>
-          )}
+          {/* One-time plans */}
+          <div style={{
+            opacity: pricingTab === 'onetime' ? 1 : 0,
+            pointerEvents: pricingTab === 'onetime' ? 'auto' : 'none',
+            transition: 'opacity 0.25s ease',
+            position: pricingTab === 'onetime' ? 'static' : 'absolute',
+          }}>
+            <PricingGrid items={plans} />
+          </div>
+
+          {/* Monthly retainer plans */}
+          <div style={{
+            opacity: pricingTab === 'retainer' ? 1 : 0,
+            pointerEvents: pricingTab === 'retainer' ? 'auto' : 'none',
+            transition: 'opacity 0.25s ease',
+            position: pricingTab === 'retainer' ? 'static' : 'absolute',
+          }}>
+            <PricingGrid items={retainerPlans} />
+          </div>
+
         </div>
       </section>
 
-      {/* Monthly Maintenance Upsell */}
-      <section className="maintenance-section">
+      <hr className="rule" />
+
+      {/* ── FAQ — accordion ───────────────────── */}
+      <section style={{ padding: '64px 0' }}>
         <div className="container">
-          <div className="maintenance-card">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 64 }}>
             <div>
-              <div className="maintenance-title">Add monthly maintenance to any project</div>
-              <p className="maintenance-desc">Keep your site fast, secure, and evolving. Our Care plan pairs perfectly with any one-time build — add it at checkout or anytime after launch.</p>
-              <Link to="/contact" className="btn-primary" style={{ marginTop: 20, width: 'fit-content' }}>Add to my project →</Link>
+              <div className="label" style={{ marginBottom: 14 }}>FAQ</div>
+              <h2 style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 25,
+                fontWeight: 700,
+                letterSpacing: '-0.02em',
+                lineHeight: 1.2,
+              }}>
+                Common questions
+              </h2>
             </div>
-            <div className="maintenance-price">
-              <div className="maintenance-price-value">$499<span style={{ fontSize: 18, fontWeight: 500, color: 'var(--gray-400)' }}>/mo</span></div>
-              <div className="maintenance-price-label">Care plan · cancel anytime</div>
+            <div>
+              {faqs.map((f, i) => (
+                <div key={f.q} style={{ borderTop: i === 0 ? 'none' : '1px solid var(--rule)' }}>
+                  <button
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    style={{
+                      width: '100%',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: '14px 0',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      gap: 16,
+                      textAlign: 'left',
+                    }}
+                  >
+                    <span style={{
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: 15,
+                      fontWeight: 600,
+                      letterSpacing: '-0.01em',
+                      color: 'var(--black)',
+                    }}>
+                      {f.q}
+                    </span>
+                    <span style={{
+                      fontSize: 18,
+                      fontWeight: 300,
+                      color: 'var(--muted)',
+                      flexShrink: 0,
+                      lineHeight: 1,
+                      display: 'block',
+                      transition: 'transform 0.3s ease',
+                      transform: openFaq === i ? 'rotate(45deg)' : 'none',
+                    }}>
+                      +
+                    </span>
+                  </button>
+                  <div style={{
+                    overflow: 'hidden',
+                    maxHeight: openFaq === i ? '300px' : '0',
+                    transition: 'max-height 0.35s ease',
+                  }}>
+                    <p style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.8, paddingBottom: 14 }}>
+                      {f.a}
+                    </p>
+                  </div>
+                </div>
+              ))}
+              <div style={{ borderTop: '1px solid var(--rule)' }} />
             </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="faq-section" style={{ background: 'var(--gray-50)' }}>
+      <hr className="rule" />
+
+      {/* ── CTA ──────────────────────────────── */}
+      <section className="section-cta">
         <div className="container">
-          <div className="faq-header">
-            <div className="section-label">FAQ</div>
-            <h2 className="section-title" style={{ marginTop: 12 }}>Common questions</h2>
-          </div>
-          <div className="faq-list">
-            {faqs.map(f => <FaqItem key={f.q} q={f.q} a={f.a} />)}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="cta-band">
-        <div className="cta-band-inner">
-          <h2 className="cta-band-title">Not sure which plan is right?</h2>
-          <p className="cta-band-sub">Book a free 30-minute call. We'll recommend the right fit for your budget and goals — no pressure.</p>
-          <div className="cta-band-btns">
-            <Link to="/contact" className="btn-white">Book a Free Call →</Link>
-            <Link to="/services" className="btn-ghost-white">See all services</Link>
-          </div>
+          <div className="label" style={{ marginBottom: 36 }}>Not sure which plan?</div>
+          <h2 className="section-cta-title">
+            Let's figure it out together
+          </h2>
+          <Link to="/contact" className="hero-cta">
+            Book a free call →
+          </Link>
         </div>
       </section>
     </>
