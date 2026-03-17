@@ -12,6 +12,9 @@ export const caseStudies = [
       { value: '3 wks', label: 'To launch' },
     ],
     tag: 'Website Redesign',
+    // Files in /public are referenced from the site root (e.g. /joe-gym.jpg).
+    thumbnail: '/joe-gym.jpg',
+    thumbnailCaption: 'Joe Gym website snapshot',
     visual: 'bars',
     fullStory: {
       challenge: 'NovaTech had a 6-year-old website that was built on a rigid template. It looked outdated on mobile, had a confusing navigation structure, and was converting at under 1.2%. They were driving significant paid traffic but losing potential customers before they even saw the product.',
@@ -32,6 +35,8 @@ export const caseStudies = [
       { value: '2 wks', label: 'Deployed' },
     ],
     tag: 'AI Automations',
+    thumbnail: '/case-studies/crestline-thumb.jpg',
+    thumbnailCaption: 'Intake and routing workflow',
     visual: 'robot',
     fullStory: {
       challenge: 'Crestline Legal was spending 3+ hours every day manually processing new client inquiries — triaging emails, entering data into their CRM, scheduling consultations, and following up. This was pulling their senior staff away from billable work.',
@@ -52,6 +57,8 @@ export const caseStudies = [
       { value: '8.1x', label: 'ROI (3mo)' },
     ],
     tag: 'Full Transformation',
+    thumbnail: '/case-studies/orbit-thumb.jpg',
+    thumbnailCaption: 'Marketing site and analytics',
     visual: 'lightning',
     fullStory: {
       challenge: 'Orbit Analytics had a compelling product but a website that didn\'t reflect it. Their demo request flow required 5 manual back-and-forth emails to schedule a single call. They had no analytics beyond basic page views, so they couldn\'t optimize anything.',
@@ -64,27 +71,36 @@ export const caseStudies = [
 ]
 
 function CaseCard({ c }) {
+  const thumbnailStyle = c.thumbnail
+    ? { backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.4)), url(${c.thumbnail})` }
+    : undefined
+
   return (
     <Link to={`/case-studies/${c.slug}`} className="case-card">
-      <div className="case-image">
+      <div className={`case-image${c.thumbnail ? ' has-thumbnail' : ''}`} style={thumbnailStyle}>
         <div className="case-image-inner">
-          {c.visual === 'bars' ? (
+          {c.thumbnail ? (
+            <>
+              <div className="case-image-chip">Case Snapshot</div>
+              <div className="case-image-caption">{c.thumbnailCaption}</div>
+            </>
+          ) : c.visual === 'bars' ? (
             <>
               <div className="case-image-bars">
                 <div className="case-image-bar" style={{ height: 30 }}></div>
                 <div className="case-image-bar after" style={{ height: 55 }}></div>
               </div>
-              <div style={{ fontSize: 11, color: 'var(--gray-400)' }}>Before / After</div>
+              <div className="case-image-caption">Before / After</div>
             </>
           ) : c.visual === 'robot' ? (
             <>
-              <div style={{ fontSize: 32, marginBottom: 8 }}>🤖</div>
-              <div style={{ fontSize: 11, color: 'var(--gray-400)' }}>AI Workflow Diagram</div>
+              <div className="case-image-icon">AI</div>
+              <div className="case-image-caption">Workflow Diagram</div>
             </>
           ) : (
             <>
-              <div style={{ fontSize: 32, marginBottom: 8 }}>⚡</div>
-              <div style={{ fontSize: 11, color: 'var(--gray-400)' }}>Full Transformation</div>
+              <div className="case-image-icon">FT</div>
+              <div className="case-image-caption">Full Transformation</div>
             </>
           )}
         </div>

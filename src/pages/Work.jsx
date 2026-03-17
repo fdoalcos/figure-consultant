@@ -1,54 +1,61 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const work = [
   {
-    slug: 'novatech',
-    client: 'NovaTech',
+    slug: 'joe-gym',
+    client: 'Joe Gym',
     type: 'WEBSITE REDESIGN',
-    tagline: 'From outdated to industry-leading in 3 weeks',
-    // dark gradient placeholder — deep charcoal
-    bg: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 40%, #111 100%)',
+    tagline: 'Landing page redesign with stronger local lead capture',
+    bg: '/joe-gym2.png',
+    bgGif: '/joe-gym.gif',
   },
   {
-    slug: 'bloom-studio',
-    client: 'Bloom Studio',
+    slug: 'nail-spa',
+    client: 'Nail Spa',
     type: 'FULL TRANSFORMATION',
-    tagline: 'New site + AI automations = 40% more leads',
-    bg: 'linear-gradient(160deg, #0f0f0f 0%, #1e1e1e 50%, #2a2a2a 100%)',
+    tagline: 'Brand refresh and booking flow redesign',
+    bg: '/nail-spa.png',
+    bgGif: '/nail-spa.gif',
   },
   {
-    slug: 'vertex-laws',
-    client: 'Vertex Laws',
+    slug: 'francis-alcos',
+    client: 'Francis Alcos',
     type: 'WEBSITE REDESIGN',
-    tagline: 'Clean, professional presence that converts',
-    bg: 'linear-gradient(120deg, #222 0%, #333 60%, #111 100%)',
+    tagline: 'Personal portfolio with polished project storytelling',
+    bg: '/francis-alcos-portfolio.png',
+    bgGif: '/francis-alcos-portfolio.gif',
   },
   {
-    slug: 'crestline-legal',
-    client: 'Crestline Co',
-    type: 'AI AUTOMATIONS',
-    tagline: 'Automated their entire client onboarding flow',
-    bg: 'linear-gradient(150deg, #141414 0%, #252525 50%, #1a1a1a 100%)',
-  },
-  {
-    slug: 'orbit-analytics',
-    client: 'Orbit Agency',
-    type: 'FULL TRANSFORMATION',
-    tagline: 'Complete digital overhaul, launched in 4 weeks',
-    bg: 'linear-gradient(140deg, #1c1c1c 0%, #2e2e2e 55%, #0d0d0d 100%)',
-  },
-  {
-    slug: 'novatech',
-    client: 'Acme Co',
+    slug: 'laura-dang',
+    client: 'Laura Dang',
     type: 'WEBSITE REDESIGN',
-    tagline: '$2,500 site that competes with Fortune 500 brands',
-    bg: 'linear-gradient(130deg, #111 0%, #1f1f1f 45%, #2b2b2b 100%)',
+    tagline: 'Portfolio refresh with clearer service positioning',
+    bg: '/laura-dang-portfolio.png',
+    bgGif: '/laura-dang-portfolio.gif',
   },
 ]
 
-const cardHeights = [500, 500, 500, 500, 500, 500]
+const cardHeights = Array(work.length).fill(500)
 
 export default function Work() {
+  const [hoveredSlug, setHoveredSlug] = useState(null)
+  const [gifVersionBySlug, setGifVersionBySlug] = useState({})
+
+  const handleMouseEnter = (w) => {
+    setHoveredSlug(w.slug)
+    if (w.bgGif) {
+      setGifVersionBySlug(prev => ({
+        ...prev,
+        [w.slug]: (prev[w.slug] ?? 0) + 1,
+      }))
+    }
+  }
+
+  const handleMouseLeave = (w) => {
+    setHoveredSlug(current => (current === w.slug ? null : current))
+  }
+
   return (
     <>
       {/* ── PAGE HEADER ──────────────────────── */}
@@ -74,6 +81,9 @@ export default function Work() {
             <Link
               key={`${w.slug}-${i}`}
               to={`/work/${w.slug}`}
+              className="work-grid-card"
+              onMouseEnter={() => handleMouseEnter(w)}
+              onMouseLeave={() => handleMouseLeave(w)}
               style={{
                 display: 'block',
                 position: 'relative',
@@ -89,11 +99,25 @@ export default function Work() {
               <div style={{
                 position: 'absolute',
                 inset: 0,
-                background: w.bg,
+                background: `center / cover no-repeat url('${w.bg}')`,
                 transition: 'transform 0.3s ease',
               }}
               className="work-card-bg"
               />
+
+              {/* Optional hover GIF preview */}
+              {w.bgGif && (
+                <img
+                  key={`${w.slug}-${gifVersionBySlug[w.slug] ?? 0}`}
+                  src={`${w.bgGif}?v=${gifVersionBySlug[w.slug] ?? 0}`}
+                  alt=""
+                  aria-hidden="true"
+                  className="work-card-gif"
+                  style={{
+                    opacity: hoveredSlug === w.slug ? 1 : 0,
+                  }}
+                />
+              )}
 
               {/* Bottom gradient overlay for text legibility */}
               <div style={{
