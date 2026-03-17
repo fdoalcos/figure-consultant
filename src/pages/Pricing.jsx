@@ -5,7 +5,8 @@ const plans = [
   {
     index: '01',
     tier: 'Starter',
-    price: '999',
+    price: '499',
+    originalPrice: '999',
     priceLabel: 'one-time',
     desc: 'Best for early-stage businesses getting a professional presence online fast.',
     features: [
@@ -20,7 +21,8 @@ const plans = [
   {
     index: '02',
     tier: 'Growth',
-    price: '2,500',
+    price: '1,250',
+    originalPrice: '2,500',
     priceLabel: 'one-time',
     desc: 'Our most-chosen package. Built to convert visitors into leads from day one.',
     features: [
@@ -211,6 +213,23 @@ function PricingGrid({ items }) {
               </div>
             ) : (
               <>
+                {p.originalPrice && (
+                  <div style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: 22,
+                    fontWeight: 700,
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1,
+                    color: isSelected ? 'rgba(255,255,255,0.5)' : 'var(--muted)',
+                    marginBottom: 6,
+                    textDecoration: 'line-through',
+                    textDecorationColor: isSelected ? 'rgba(255,255,255,0.7)' : 'var(--black)',
+                    textDecorationThickness: 2,
+                  }}>
+                    <sup style={{ fontSize: 13, fontWeight: 400, verticalAlign: 'super', letterSpacing: 0 }}>$</sup>
+                    {p.originalPrice}
+                  </div>
+                )}
                 <div style={{
                   fontFamily: 'var(--font-serif)',
                   fontSize: 48,
