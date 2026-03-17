@@ -308,6 +308,7 @@ function PricingGrid({ items }) {
 export default function Pricing() {
   const [openFaq, setOpenFaq] = useState(0)
   const [pricingTab, setPricingTab] = useState('onetime')
+  const activePlans = pricingTab === 'onetime' ? plans : retainerPlans
 
   return (
     <>
@@ -361,24 +362,9 @@ export default function Pricing() {
             </div>
           </div>
 
-          {/* One-time plans */}
-          <div style={{
-            opacity: pricingTab === 'onetime' ? 1 : 0,
-            pointerEvents: pricingTab === 'onetime' ? 'auto' : 'none',
-            transition: 'opacity 0.25s ease',
-            position: pricingTab === 'onetime' ? 'static' : 'absolute',
-          }}>
-            <PricingGrid items={plans} />
-          </div>
-
-          {/* Monthly retainer plans */}
-          <div style={{
-            opacity: pricingTab === 'retainer' ? 1 : 0,
-            pointerEvents: pricingTab === 'retainer' ? 'auto' : 'none',
-            transition: 'opacity 0.25s ease',
-            position: pricingTab === 'retainer' ? 'static' : 'absolute',
-          }}>
-            <PricingGrid items={retainerPlans} />
+          {/* Active plans */}
+          <div className="page-fade" key={pricingTab}>
+            <PricingGrid key={pricingTab} items={activePlans} />
           </div>
 
         </div>
