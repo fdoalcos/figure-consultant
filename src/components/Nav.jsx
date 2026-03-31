@@ -31,6 +31,8 @@ export default function Nav() {
           ))}
         </div>
 
+        <Link to="/contact" className="nav-cta">Book a call →</Link>
+
         <button
           className="nav-hamburger"
           onClick={() => setOpen(o => !o)}

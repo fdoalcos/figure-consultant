@@ -1,41 +1,109 @@
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
+const PHRASES = [
+  'automate the busywork',
+  'scale with your business',
+  'turn ideas into reality',
+  'solve your biggest bottlenecks',
+  'save you time and money',
+  'give you a competitive edge',
+]
+
+const BADGES = [
+  'Websites & landing pages',
+  'E-commerce & payments',
+  'AI-powered features',
+  'Workflow automation',
+  'Custom dashboards & tools',
+]
+
+function useTypewriter() {
+  const [displayed, setDisplayed] = useState('')
+  const [phraseIdx, setPhraseIdx] = useState(0)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const timeoutRef = useRef(null)
+
+  useEffect(() => {
+    const phrase = PHRASES[phraseIdx]
+
+    if (!isDeleting) {
+      if (displayed.length < phrase.length) {
+        const jitter = Math.random() * 80 - 40
+        timeoutRef.current = setTimeout(() => {
+          setDisplayed(phrase.slice(0, displayed.length + 1))
+        }, 68 + jitter)
+      } else {
+        timeoutRef.current = setTimeout(() => {
+          setIsDeleting(true)
+        }, 1800)
+      }
+    } else {
+      if (displayed.length > 0) {
+        timeoutRef.current = setTimeout(() => {
+          setDisplayed(prev => prev.slice(0, -1))
+        }, 32)
+      } else {
+        timeoutRef.current = setTimeout(() => {
+          setIsDeleting(false)
+          setPhraseIdx(i => (i + 1) % PHRASES.length)
+        }, 400)
+      }
+    }
+
+    return () => clearTimeout(timeoutRef.current)
+  }, [displayed, phraseIdx, isDeleting])
+
+  return displayed
+}
+
 export default function Home() {
+  const typed = useTypewriter()
+
   return (
     <>
       {/* ── HERO ─────────────────────────────── */}
       <section className="hero">
         <div className="container">
-          <div className="label hero-label">Now accepting Q2 2026 clients</div>
           <h1 className="hero-title">
-            We <span className="accent">
-              technify
-              <svg
-                aria-hidden="true"
-                className="underline-svg"
-                viewBox="0 0 400 14"
-                preserveAspectRatio="none"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M 2,10 C 40,4 90,13 155,8 C 220,3 275,12 335,7 C 365,4 388,9 398,8"
-                  stroke="var(--green)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="underline-path"
-                />
-              </svg>
-            </span><br />your business
+            We build digital products that{' '}
+            <span className="hero-typed">
+              {typed}<span className="hero-cursor" aria-hidden="true">|</span>
+            </span>
           </h1>
           <p className="hero-sub">
-            Websites and AI that turn visitors into revenue.
-            Built fast, built right.
+            Websites, software, and AI tools — built fast, built right.
+            From first call to launch in weeks, not months.
           </p>
-          <Link to="/contact" className="hero-cta">
-            Book a free discovery call →
-          </Link>
+          <div className="hero-badges">
+            {BADGES.map(badge => (
+              <span key={badge} className="hero-badge">
+                <span className="hero-badge-dot" />
+                {badge}
+              </span>
+            ))}
+          </div>
+          <div className="hero-proof">
+            <div className="hero-proof-item">
+              <span className="hero-proof-stat">3x</span>
+              <span className="hero-proof-label">Avg. conversion lift</span>
+            </div>
+            <div className="hero-proof-divider" />
+            <div className="hero-proof-item">
+              <span className="hero-proof-stat">2–4 wks</span>
+              <span className="hero-proof-label">Typical delivery</span>
+            </div>
+            <div className="hero-proof-divider" />
+            <div className="hero-proof-item">
+              <span className="hero-proof-stat">50+</span>
+              <span className="hero-proof-label">Projects shipped</span>
+            </div>
+          </div>
+          <div className="hero-actions">
+            <Link to="/contact" className="hero-cta-filled">Book a free discovery call →</Link>
+            <Link to="/work" className="hero-secondary-link">See our work</Link>
+          </div>
+          <p className="hero-microcopy">Free 30-min call · No commitment · Fast turnaround</p>
         </div>
       </section>
 

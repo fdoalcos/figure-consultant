@@ -107,6 +107,23 @@ nav {
 .nav-links a:hover,
 .nav-links a.active { color: var(--black); }
 
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  background: var(--black);
+  color: #fff;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 9px 16px;
+  border-radius: 4px;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+.nav-cta:hover { opacity: 0.75; }
+
 .nav-hamburger {
   display: none;
   flex-direction: column;
@@ -144,7 +161,7 @@ nav {
    HERO
 ═══════════════════════════════════════════════ */
 .hero {
-  padding: 128px 0 112px;
+  padding: 72px 0 64px;
   text-align: center;
 }
 .hero-label {
@@ -152,13 +169,13 @@ nav {
 }
 .hero-title {
   font-family: var(--font-serif);
-  font-size: 100px;
-  font-weight: 400;
-  line-height: 1.04;
+  font-size: clamp(42px, 5.5vw, 68px);
+  font-weight: 700;
+  line-height: 1.15;
   letter-spacing: -0.025em;
   color: var(--black);
-  max-width: 880px;
-  margin: 0 auto 36px;
+  max-width: 860px;
+  margin: 0 auto 32px;
 }
 /* Green accent — single detail, Sequoia-style */
 .hero-title .accent {
@@ -206,6 +223,132 @@ nav {
   transition: opacity 0.15s;
 }
 .hero-cta:hover { opacity: 0.4; }
+
+/* ── TYPEWRITER ──────────────────────────── */
+.hero-typed {
+  display: inline;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: #2a6644;
+}
+.hero-cursor {
+  display: inline;
+  margin-left: 1px;
+  color: #2a6644;
+  font-style: normal;
+  animation: blink-cursor 0.75s step-end infinite;
+}
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── HERO BADGES ─────────────────────────── */
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 auto 44px;
+  max-width: 680px;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e4e1da;
+  border-radius: 100px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--black);
+  letter-spacing: 0.01em;
+}
+.hero-badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #2a6644;
+  flex-shrink: 0;
+}
+
+/* ── HERO PROOF STRIP ────────────────────── */
+.hero-proof {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 0 auto 44px;
+}
+.hero-proof-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0 36px;
+}
+.hero-proof-stat {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--black);
+  line-height: 1;
+}
+.hero-proof-label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.hero-proof-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--rule);
+  flex-shrink: 0;
+}
+
+/* ── HERO ACTIONS ────────────────────────── */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.hero-cta-filled {
+  display: inline-flex;
+  align-items: center;
+  background: var(--black);
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 13px 24px;
+  border-radius: 4px;
+  transition: opacity 0.15s;
+}
+.hero-cta-filled:hover { opacity: 0.75; }
+.hero-secondary-link {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--black);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 1px;
+  transition: opacity 0.15s;
+}
+.hero-secondary-link:hover { opacity: 0.4; }
+.hero-microcopy {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  text-align: center;
+}
 
 /* ═══════════════════════════════════════════════
    LOGOS
@@ -1014,7 +1157,6 @@ footer {
 ═══════════════════════════════════════════════ */
 @media (max-width: 960px) {
   :root { --pad: 36px; }
-  .hero-title { font-size: 72px; }
   .page-header-title { font-size: 56px; }
   .process-steps { grid-template-columns: 1fr 1fr; }
   .process-step:nth-child(2) { border-right: none; padding-right: 0; }
@@ -1084,9 +1226,11 @@ footer {
   :root { --pad: 24px; }
   nav { padding: 18px 0; }
   .nav-links { display: none; }
+  .nav-cta { display: none; }
   .nav-hamburger { display: flex; }
   .hero { padding: 80px 0 72px; }
-  .hero-title { font-size: 52px; }
+  .hero-proof-item { padding: 0 20px; }
+  .hero-proof-stat { font-size: 24px; }
   .cases-grid { grid-template-columns: 1fr; }
   .hero-sub { font-size: 15px; }
   .page-header { padding: 72px 0 60px; }
