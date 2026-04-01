@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 
 const PHRASES = [
   'automate the busywork',
-  'scale with your business',
+  'grow with your business',
   'turn ideas into reality',
   'solve your biggest bottlenecks',
   'save you time and money',
-  'give you a competitive edge',
+  'put you ahead of competitors',
 ]
 
 const BADGES = [
@@ -16,6 +16,45 @@ const BADGES = [
   'AI-powered features',
   'Workflow automation',
   'Custom dashboards & tools',
+]
+
+const featuredWork = [
+  {
+    slug: 'joe-gym',
+    client: 'Joe Gym',
+    tag: 'Website Redesign',
+    desc: 'Fitness studio needed a site that converts walk-ins and reduces front desk calls.',
+    metric: { value: '+118%', label: 'Trial signups' },
+    bg: '/joe-gym2.png',
+    gif: '/joe-gym.gif',
+  },
+  {
+    slug: 'nail-spa',
+    client: 'Luxury Nail Spa',
+    tag: 'Full Transformation',
+    desc: 'Booking-first redesign for a high-end nail salon looking to reduce no-shows.',
+    metric: { value: '3×', label: 'Online bookings' },
+    bg: '/nail-spa.png',
+    gif: '/nail-spa.gif',
+  },
+]
+
+const testimonials = [
+  {
+    quote: "We finally have a website that helps our front desk instead of creating more calls and confusion.",
+    name: "Joe Martinez",
+    role: "Owner — Joe Gym",
+  },
+  {
+    quote: "Appointments are smoother now and clients tell us the new site feels exactly like our salon.",
+    name: "Linh Tran",
+    role: "Manager — Luxury Nail Spa",
+  },
+  {
+    quote: "I can send people to my site with confidence now. It explains exactly what I do and who I help.",
+    name: "Laura Dang",
+    role: "Founder — Laura Dang Consulting",
+  },
 ]
 
 function useTypewriter() {
@@ -59,7 +98,6 @@ function useTypewriter() {
 
 export default function Home() {
   const typed = useTypewriter()
-
   return (
     <>
       {/* ── HERO ─────────────────────────────── */}
@@ -109,10 +147,76 @@ export default function Home() {
 
       <hr className="rule" />
 
+      {/* ── FEATURED WORK ────────────────────── */}
+      <section style={{ padding: '52px 0' }}>
+        <div className="container">
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 36 }}>
+            <div>
+              <div className="label" style={{ marginBottom: 10 }}>Selected work</div>
+              <h2 style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 28,
+                fontWeight: 700,
+                letterSpacing: '-0.02em',
+                lineHeight: 1.2,
+              }}>
+                Results we're proud of
+              </h2>
+            </div>
+            <Link to="/work" className="hero-secondary-link" style={{ flexShrink: 0 }}>
+              See all work →
+            </Link>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: 24,
+          }}>
+            {featuredWork.map(w => (
+              <Link
+                key={w.slug}
+                to={`/work/${w.slug}`}
+                className="case-card"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                {/* Image — always show GIF */}
+                <div className="case-image has-thumbnail" style={{
+                  backgroundImage: `url(${w.gif})`,
+                  position: 'relative',
+                  overflow: 'hidden',
+                }} />
+
+                {/* Body */}
+                <div className="case-body">
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 8 }}>
+                    <span className="case-client">{w.client}</span>
+                    <span style={{
+                      fontSize: 10,
+                      fontWeight: 600,
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                      color: 'var(--muted)',
+                      flexShrink: 0,
+                    }}>{w.tag}</span>
+                  </div>
+                  <p className="case-desc">{w.desc}</p>
+                  <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--rule)' }}>
+                    <div className="case-metric-value">{w.metric.value}</div>
+                    <div className="case-metric-label">{w.metric.label}</div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <hr className="rule" />
+
       {/* ── PROCESS ──────────────────────────── */}
       <section style={{ padding: '52px 0' }}>
         <div className="container">
-          {/* Header — centered */}
           <div style={{ textAlign: 'center', marginBottom: 44 }}>
             <div className="label" style={{ marginBottom: 14 }}>How it works</div>
             <h2 className="process-section-title" style={{
@@ -130,16 +234,14 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Steps — 4 columns, no dividers, centered */}
           <div className="process-grid">
             {[
               { title: 'Discovery Call',      desc: '30-min call to understand your goals, current challenges, and what success looks like.' },
               { title: 'Strategy & Proposal', desc: 'Custom roadmap and proposal delivered within 48 hours of the call.' },
-              { title: 'Build & Iterate',     desc: 'We build fast, share progress daily, and refine based on your feedback.' },
-              { title: 'Launch & Support',    desc: 'Go live with confidence. Ongoing support ensures everything keeps performing.' },
+              { title: 'Build & Iterate',     desc: 'We build fast, keep you in the loop at every stage, and refine based on your feedback.' },
+              { title: 'Launch & Support',    desc: <>Go live with confidence. Ongoing support ensures everything keeps performing. <Link to="/pricing" style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: 2 }}>Our monthly retainers keep things running.</Link></> },
             ].map((s, i) => (
               <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                {/* Bubble */}
                 <div style={{
                   width: 60,
                   height: 60,
@@ -158,7 +260,6 @@ export default function Home() {
                 }}>
                   {i + 1}
                 </div>
-                {/* Title */}
                 <div style={{
                   fontSize: 14,
                   fontWeight: 700,
@@ -168,7 +269,6 @@ export default function Home() {
                 }}>
                   {s.title}
                 </div>
-                {/* Description */}
                 <p style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.7 }}>
                   {s.desc}
                 </p>
@@ -180,12 +280,54 @@ export default function Home() {
 
       <hr className="rule" />
 
+      {/* ── TESTIMONIALS ─────────────────────── */}
+      <section style={{ padding: '64px 0' }}>
+        <div className="container">
+          <div className="label" style={{ marginBottom: 36, textAlign: 'center' }}>What clients say</div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            borderTop: '1px solid var(--rule)',
+          }}>
+            {testimonials.map((t, i) => (
+              <div key={t.name} style={{
+                padding: '36px 36px 36px 0',
+                paddingLeft: i === 0 ? 0 : 36,
+                borderRight: i < testimonials.length - 1 ? '1px solid var(--rule)' : 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                gap: 32,
+              }}>
+                <blockquote style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 16,
+                  fontWeight: 400,
+                  fontStyle: 'italic',
+                  lineHeight: 1.75,
+                  color: 'var(--black)',
+                  margin: 0,
+                }}>
+                  "{t.quote}"
+                </blockquote>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 3 }}>{t.name}</div>
+                  <div style={{ fontSize: 12, color: 'var(--muted)' }}>{t.role}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <hr className="rule" />
+
       {/* ── LOGOS ────────────────────────────── */}
       <section className="logos-section">
         <div className="container">
-          <p className="logos-label">Trusted by fast-growing companies</p>
+          <p className="logos-label">Clients we've worked with</p>
           <div className="logos-row">
-            {['Luxury Nail Spa', 'Joe Gym Fitness', "Laura's Portfolio", "Francis's Portfolio"].map(name => (
+            {['Luxury Nail Spa', 'Joe Gym', 'Laura Dang Consulting', 'Francis Alcos'].map(name => (
               <span key={name} className="logo-name">{name}</span>
             ))}
           </div>
@@ -199,7 +341,7 @@ export default function Home() {
         <div className="container">
           <div className="label" style={{ marginBottom: 36 }}>Start here</div>
           <h2 className="section-cta-title">
-            Ready to level up your<br />digital presence?
+            Let's build something that<br />actually performs
           </h2>
           <Link to="/contact" className="hero-cta">
             Book a free call →
