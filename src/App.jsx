@@ -19,6 +19,16 @@ function ScrollToTop() {
   return null
 }
 
+function RouteTracker() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', { page_path: pathname })
+    }
+  }, [pathname])
+  return null
+}
+
 function PageWrapper({ children }) {
   return <div className="page-fade">{children}</div>
 }
@@ -27,6 +37,7 @@ function AppRoutes() {
   return (
     <>
       <ScrollToTop />
+      <RouteTracker />
       <Nav />
       <main>
         <Routes>
