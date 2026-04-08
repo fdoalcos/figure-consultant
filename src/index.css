@@ -1864,6 +1864,54 @@ footer {
   background: var(--black);
   border-color: var(--black);
 }
+.blog-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 26px 0 22px;
+  border-bottom: 1px solid var(--rule);
+  transition: border-color 0.25s;
+}
+.blog-search-wrap:focus-within {
+  border-color: #2a6644;
+}
+.blog-search-icon {
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: color 0.25s;
+  position: relative;
+  top: 1px;
+}
+.blog-search-wrap:focus-within .blog-search-icon {
+  color: #2a6644;
+}
+.blog-search {
+  flex: 1;
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  color: var(--black);
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+.blog-search::placeholder {
+  color: var(--muted);
+  font-style: italic;
+}
+.blog-search-clear {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 2px;
+  line-height: 0;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+.blog-search-clear:hover { color: var(--black); }
 .blog-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
