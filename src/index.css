@@ -1287,7 +1287,7 @@ footer {
    BLOG LIST
 ═══════════════════════════════════════════════ */
 .blog-filters {
-  padding: 32px 0 0;
+  padding: 24px 0 0;
 }
 .blog-filter-tabs {
   display: flex;
@@ -1323,29 +1323,29 @@ footer {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 32px 0 26px;
+  padding: 26px 0 22px;
   border-bottom: 1px solid var(--rule);
-  transition: border-color 0.2s;
+  transition: border-color 0.25s;
 }
 .blog-search-wrap:focus-within {
-  border-color: var(--black);
+  border-color: #2a6644;
 }
 .blog-search-icon {
   color: var(--muted);
   flex-shrink: 0;
-  transition: color 0.2s;
+  transition: color 0.25s;
   position: relative;
   top: 1px;
 }
 .blog-search-wrap:focus-within .blog-search-icon {
-  color: var(--black);
+  color: #2a6644;
 }
 .blog-search {
   flex: 1;
   font-family: var(--font-serif);
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
   color: var(--black);
   background: none;
   border: none;
@@ -1359,12 +1359,10 @@ footer {
 .blog-search-clear {
   background: none;
   border: none;
-  font-size: 20px;
-  font-weight: 300;
   color: var(--muted);
   cursor: pointer;
-  padding: 0 2px;
-  line-height: 1;
+  padding: 2px;
+  line-height: 0;
   flex-shrink: 0;
   transition: color 0.15s;
 }

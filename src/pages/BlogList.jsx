@@ -56,7 +56,10 @@ export default function BlogList() {
                 onClick={() => setQuery('')}
                 aria-label="Clear search"
               >
-                ×
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <line x1="1" y1="1" x2="13" y2="13" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                  <line x1="13" y1="1" x2="1" y2="13" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                </svg>
               </button>
             )}
           </div>
