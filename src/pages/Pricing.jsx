@@ -5,33 +5,35 @@ import { useSEO } from '../hooks/useSEO'
 const plans = [
   {
     index: '01',
-    tier: 'Starter',
-    price: '499',
-    originalPrice: '999',
+    tier: 'Launchpad',
+    price: '2,500',
     priceLabel: 'one-time',
-    desc: 'Best for early-stage businesses getting a professional presence online fast.',
+    desc: 'For small businesses that need a professional online presence without the complexity.',
     features: [
       'Up to 5 pages',
-      'Mobile responsive',
-      'Contact form',
+      'Mobile-first responsive design',
+      'Contact form + lead capture',
+      'SEO foundation setup',
       '2 rounds of revisions',
+      '30-day post-launch support',
     ],
     cta: 'Get started →',
-    ctaParam: 'starter',
+    ctaParam: 'launchpad',
   },
   {
     index: '02',
     tier: 'Growth',
-    price: '1,249',
-    originalPrice: '2,499',
+    price: '4,500',
     priceLabel: 'one-time',
     desc: 'Our most-chosen package. Built to convert visitors into leads from day one.',
     features: [
-      'Up to 8 pages',
-      'Custom design system',
-      'SEO foundation',
+      'Up to 12 pages',
+      'Custom design system & brand refresh',
+      'SEO foundation + Core Web Vitals',
       'CRM integration',
+      '1 AI-powered feature included',
       'Unlimited revisions (14 days)',
+      '60-day post-launch support',
     ],
     cta: 'Get started →',
     ctaParam: 'growth',
@@ -46,8 +48,9 @@ const plans = [
     features: [
       'Unlimited pages',
       'Full automation stack',
-      'AI integrations',
+      'AI integrations & chatbots',
       'Monthly strategy calls',
+      'Custom dashboard & reporting',
       'Priority support',
     ],
     cta: 'Book a call →',
@@ -59,33 +62,34 @@ const plans = [
 const retainerPlans = [
   {
     index: '01',
-    tier: 'Standard',
-    price: '99',
+    tier: 'Maintain',
+    price: '299',
     priceLabel: 'per month',
     desc: 'Keep your site live, secure, and running smoothly every month.',
     features: [
-      'Hosting',
+      'Hosting & uptime monitoring',
       'Bug fixes & security patches',
       'Monthly performance report',
       'Up to 2hr changes/mo',
     ],
     cta: 'Get started →',
-    ctaParam: 'retainer-standard',
+    ctaParam: 'retainer-maintain',
   },
   {
     index: '02',
-    tier: 'Growth',
-    price: '199',
+    tier: 'Partner',
+    price: '699',
     priceLabel: 'per month',
-    desc: 'Everything in Standard plus proactive growth support and strategy.',
+    desc: 'Everything in Maintain plus proactive growth support and strategy.',
     features: [
-      'Everything in Standard',
-      'Up to 5hr changes/mo',
-      'SEO monitoring',
+      'Everything in Maintain',
+      'Up to 8hr dev changes/mo',
+      'SEO monitoring & reporting',
       'Monthly strategy check-in',
+      '1 AI feature update per quarter',
     ],
     cta: 'Get started →',
-    ctaParam: 'retainer-growth',
+    ctaParam: 'retainer-partner',
     highlight: true,
   },
   {
@@ -97,22 +101,61 @@ const retainerPlans = [
     features: [
       'AI automation workflows',
       'Custom integrations',
+      'Priority support (24hr SLA)',
       'Scoped per client',
     ],
     cta: 'Book a call →',
-    ctaParam: 'custom',
+    ctaParam: 'retainer-custom',
     custom: true,
+  },
+]
+
+const addOns = [
+  { name: 'AI Chatbot', desc: 'Custom-trained lead capture or support bot', price: 'From $1,200' },
+  { name: 'E-commerce & Payments', desc: 'Full store setup with Stripe or Shopify', price: 'From $2,000' },
+  { name: 'Custom Dashboard', desc: 'Internal reporting or client-facing analytics', price: 'From $3,000' },
+  { name: 'Workflow Automation', desc: 'Make/Zapier/n8n automations, CRM hooks', price: 'From $800' },
+  { name: 'SEO Audit & Strategy', desc: 'Keyword research, on-page fixes, and roadmap', price: 'From $500' },
+  { name: 'Email Nurture Sequence', desc: 'AI-assisted copy + automation setup', price: 'From $750' },
+]
+
+const proofStats = [
+  { stat: '50+', label: 'Projects shipped' },
+  { stat: '3×', label: 'Avg. conversion lift' },
+  { stat: '2–4 wks', label: 'Typical delivery' },
+  { stat: '100%', label: 'You own everything' },
+]
+
+const testimonials = [
+  {
+    quote: "Worth every dollar. Trial signups went up 118% in the first month after launch.",
+    name: "Joe Martinez",
+    role: "Owner — Joe Gym",
+  },
+  {
+    quote: "Best investment we made for the business. Online bookings tripled within 60 days.",
+    name: "Linh Tran",
+    role: "Manager — Luxury Nail Spa",
+  },
+  {
+    quote: "I was nervous about the cost, but the first new client I landed paid for the whole project.",
+    name: "Laura Dang",
+    role: "Founder — Laura Dang Consulting",
   },
 ]
 
 const faqs = [
   {
     q: "How fast can you actually launch?",
-    a: "Most projects go live within 2–4 weeks from your kickoff call. Starter and Growth builds typically land in 3 weeks. Custom projects with automation or AI integrations may take 5–6 weeks. You'll get a precise timeline in your proposal — no vague estimates.",
+    a: "Most projects go live within 2–4 weeks from your kickoff call. Launchpad builds typically land in 2–3 weeks. Growth builds with AI features take 3–4 weeks. Custom projects with full automation stacks may take 5–6 weeks. You'll get a precise timeline in your proposal — no vague estimates.",
   },
   {
     q: "What's included in the build fee?",
     a: "Everything needed to go live: design, development, integrations, QA, and launch support. Hosting is separate and typically runs $20–50/month depending on your stack. No hidden fees, no surprise invoices after the fact.",
+  },
+  {
+    q: "Do I own everything after it's built?",
+    a: "Yes — completely. You own the code, the design, the content, and the domain. We hand over everything at launch with no lock-in. If you cancel a retainer, everything stays yours.",
   },
   {
     q: "Can I add AI or automation to my project?",
@@ -125,6 +168,14 @@ const faqs = [
   {
     q: "Can I start with a one-time build and add a retainer later?",
     a: "Absolutely. Most clients start with a one-time build, then move to a monthly retainer once they see the results. There's no pressure — add, pause, or cancel the retainer anytime with 14 days' notice.",
+  },
+  {
+    q: "Why not just hire a freelancer on Fiverr or Upwork?",
+    a: "Freelancers are fine for simple, isolated tasks — but you get whoever shows up that day. With Figured Consulting, you get a team that understands your business goals, handles design and development together, and stays accountable through launch and beyond. Most of our clients tried cheap freelancers first. The rework cost them more in the end.",
+  },
+  {
+    q: "What does an 'AI feature' actually do for my business?",
+    a: "Practically speaking: an AI chatbot answers customer questions 24/7 and captures leads while you sleep. An automation routes form submissions to your CRM and sends a follow-up email automatically. We don't add AI for novelty — we add it where it saves you time or converts more visitors.",
   },
 ]
 
@@ -146,7 +197,7 @@ function PricingGrid({ items }) {
             className={`pricing-card${isSelected ? ' pricing-card--highlight' : ''}`}
             onClick={() => setSelected(i)}
             style={{
-              background: isSelected ? 'var(--black)' : (isDiscounted ? 'rgba(0,0,0,0.02)' : 'transparent'),
+              background: isSelected ? 'var(--black)' : 'transparent',
               padding: '36px 32px 32px',
               display: 'flex',
               flexDirection: 'column',
@@ -362,12 +413,47 @@ export default function Pricing() {
         <div className="container">
           <div className="label">Pricing</div>
           <h1 className="page-header-title">
-            Transparent,<br />no-surprise pricing
+            Built for business owners,<br />not developers
           </h1>
           <p className="page-header-sub">
-            One-time build fee + optional monthly retainer.
-            No hidden costs, no scope creep.
+            One-time build + optional monthly retainer.
+            You own everything. No lock-in. No surprises.
           </p>
+        </div>
+      </section>
+
+      {/* ── SOCIAL PROOF STRIP ───────────────── */}
+      <section style={{ padding: '32px 0', borderBottom: '1px solid var(--rule)' }}>
+        <div className="container">
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 64,
+            flexWrap: 'wrap',
+          }}>
+            {proofStats.map((item, i) => (
+              <div key={i} style={{ textAlign: 'center' }}>
+                <div style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 32,
+                  fontWeight: 700,
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1,
+                }}>
+                  {item.stat}
+                </div>
+                <div style={{
+                  fontSize: 11,
+                  color: 'var(--muted)',
+                  letterSpacing: '0.07em',
+                  textTransform: 'uppercase',
+                  marginTop: 6,
+                }}>
+                  {item.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -423,24 +509,6 @@ export default function Pricing() {
             </p>
           </div>
 
-          {pricingTab === 'onetime' && (
-            <div style={{
-              margin: '0 auto 24px',
-              maxWidth: 760,
-              border: '1px solid #000',
-              background: 'linear-gradient(90deg, #000 0%, #1a1a1a 100%)',
-              color: '#fff',
-              textAlign: 'center',
-              padding: '12px 16px',
-              fontSize: 12,
-              fontWeight: 700,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-            }}>
-              Limited Launch Sale: Discounted One-Time Builds
-            </div>
-          )}
-
           {/* Active plans */}
           <div className="page-fade" key={pricingTab}>
             <PricingGrid key={pricingTab} items={activePlans} />
@@ -449,9 +517,107 @@ export default function Pricing() {
         </div>
       </section>
 
+      {/* ── ADD-ONS ──────────────────────────── */}
+      <section style={{ padding: '0 0 80px' }}>
+        <div className="container">
+          <div style={{ marginBottom: 32 }}>
+            <div className="label" style={{ marginBottom: 10 }}>À la carte</div>
+            <h2 style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 22,
+              fontWeight: 700,
+              letterSpacing: '-0.02em',
+            }}>
+              Add to any package
+            </h2>
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            border: '1px solid var(--rule)',
+          }}>
+            {addOns.map((item, i) => (
+              <div key={item.name} style={{
+                padding: '24px 28px',
+                borderRight: (i % 3) < 2 ? '1px solid var(--rule)' : 'none',
+                borderBottom: i < 3 ? '1px solid var(--rule)' : 'none',
+              }}>
+                <div style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  marginBottom: 4,
+                  letterSpacing: '-0.01em',
+                }}>
+                  {item.name}
+                </div>
+                <div style={{
+                  fontSize: 12,
+                  color: 'var(--muted)',
+                  lineHeight: 1.6,
+                  marginBottom: 12,
+                }}>
+                  {item.desc}
+                </div>
+                <div style={{
+                  fontSize: 12,
+                  fontWeight: 700,
+                  letterSpacing: '0.02em',
+                }}>
+                  {item.price}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <hr className="rule" />
 
-      {/* ── FAQ — accordion ───────────────────── */}
+      {/* ── TESTIMONIALS ─────────────────────── */}
+      <section style={{ padding: '64px 0' }}>
+        <div className="container">
+          <div className="label" style={{ marginBottom: 36, textAlign: 'center' }}>
+            What clients say about the investment
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            borderTop: '1px solid var(--rule)',
+          }}>
+            {testimonials.map((t, i) => (
+              <div key={t.name} style={{
+                padding: '36px 36px 36px 0',
+                paddingLeft: i === 0 ? 0 : 36,
+                borderRight: i < testimonials.length - 1 ? '1px solid var(--rule)' : 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                gap: 32,
+              }}>
+                <blockquote style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 16,
+                  fontWeight: 400,
+                  fontStyle: 'italic',
+                  lineHeight: 1.75,
+                  color: 'var(--black)',
+                  margin: 0,
+                }}>
+                  "{t.quote}"
+                </blockquote>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 3 }}>{t.name}</div>
+                  <div style={{ fontSize: 12, color: 'var(--muted)' }}>{t.role}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <hr className="rule" />
+
+      {/* ── FAQ ───────────────────────────────── */}
       <section style={{ padding: '64px 0' }}>
         <div className="container">
           <div className="faq-layout">
@@ -533,8 +699,11 @@ export default function Pricing() {
           <h2 className="section-cta-title">
             Let's figure it out together
           </h2>
+          <p style={{ fontSize: 14, color: 'var(--muted)', marginBottom: 32, lineHeight: 1.7 }}>
+            Free 30-min strategy call. No commitment, no pitch — just clarity on what you need.
+          </p>
           <Link to="/contact" className="hero-cta">
-            Book a free call →
+            Book a free strategy call →
           </Link>
         </div>
       </section>

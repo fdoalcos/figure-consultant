@@ -6,15 +6,32 @@
 - Added proper custom 404 page (`src/pages/NotFound.jsx`) — label "404", serif heading, description, back link + optional home link
 - Added catch-all `<Route path="*" />` in `App.jsx` to handle all unmatched routes
 - Replaced inline "not found" blocks in `BlogPost.jsx` and `CaseStudyDetail.jsx` with reusable `<NotFound />` component (accepts `backTo`, `backLabel`, `message` props)
+- Deep competitor pricing research (Designjoy, Clutch boutique agencies, Toptal, Upwork, productized services)
+- Rebuilt Pricing.jsx with research-backed strategies:
+  - Updated prices: Launchpad $2,500 / Growth $4,500 / retainer $299–$699/mo
+  - Renamed tiers: Starter → Launchpad, Standard → Maintain, Growth retainer → Partner
+  - Removed "50% OFF" discount badges (undermine boutique positioning)
+  - New page header: "Built for business owners, not developers"
+  - Added social proof strip (50+ projects, 3× lift, 2–4 wks, 100% ownership)
+  - Added à la carte add-ons section (AI chatbot, e-commerce, dashboard, automation, SEO, email)
+  - Added pricing-specific testimonials (ROI/worth-it angle) from real clients
+  - Expanded FAQ from 5 → 8 (added Fiverr objection, AI explanation, ownership question)
+  - Updated CTA to "Book a free strategy call"
+- Updated Services.jsx Website Redesign price: From $3,500 → From $2,500 for consistency
 
 ### In Progress
-- Nothing — task complete
+- Nothing — all planned tasks complete
 
 ### Next
-- Test: navigate to `/something-random`, `/work/fake-slug`, `/blog/fake-slug` to confirm 404 renders with Nav/Footer
+- Verify pricing page visually in browser
+- Consider updating Services.jsx Full Transformation price if needed
+- Optional: add responsive CSS for add-ons grid on mobile
 
 ### Notes
 - `NotFound` is reusable with props — used for global catch-all (back to home) and inline dynamic-route misses (back to section)
+- Pricing calibrated for U.S. SMB buyers (local gyms, nail spas, consultants) — above Fiverr but accessible
+- Services.jsx Full Transformation stays at "From $6,500" (website + AI automations combined)
+- Add-ons section is à la carte pricing transparency — reduces sticker shock on discovery calls
 
 ---
 

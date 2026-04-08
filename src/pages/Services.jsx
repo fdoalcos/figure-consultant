@@ -15,7 +15,7 @@ const services = [
       'Mobile-first responsive design',
       'Analytics & tracking setup',
     ],
-    price: 'From $3,500',
+    price: 'From $2,500',
     featured: false,
     cta: 'Get a free estimate →',
   },
