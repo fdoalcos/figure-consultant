@@ -1756,6 +1756,23 @@ footer {
   .contact-stat:nth-child(4) { border-top: 1px solid var(--rule); }
 }
 
+/* ── HOME TESTIMONIALS GRID ──────────────────── */
+.home-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--rule);
+}
+.home-testimonials-item {
+  padding: 36px 36px 36px 0;
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+}
+.home-testimonials-item:not(:first-child) { padding-left: 36px; }
+.home-testimonials-item:last-child { border-right: none; }
+
 /* ── REUSABLE RESPONSIVE GRIDS ───────────────── */
 .process-grid {
   display: grid;
@@ -1826,6 +1843,14 @@ footer {
   .pricing-3col-grid > *:last-child { border-bottom: none; }
   .faq-layout { grid-template-columns: 1fr; gap: 24px; }
   .about-body-grid { grid-template-columns: 1fr; gap: 48px; }
+  .home-testimonials-grid { grid-template-columns: 1fr; }
+  .home-testimonials-item {
+    padding: 28px 0;
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+  }
+  .home-testimonials-item:not(:first-child) { padding-left: 0; }
+  .home-testimonials-item:last-child { border-bottom: none; }
 }
 
 /* ═══════════════════════════════════════════════
