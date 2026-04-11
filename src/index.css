@@ -189,7 +189,6 @@ nav {
   color: var(--black);
   max-width: 860px;
   margin: 0 auto 32px;
-  min-height: 2.3em; /* 2 lines × line-height 1.15 — prevents layout shift */
 }
 /* Green accent — single detail, Sequoia-style */
 .hero-title .accent {
@@ -239,6 +238,11 @@ nav {
 .hero-cta:hover { opacity: 0.4; }
 
 /* ── TYPEWRITER ──────────────────────────── */
+.hero-typed-line {
+  display: block;
+  height: 1.15em;   /* fixed — never grows regardless of phrase length */
+  overflow: visible; /* long phrases overflow horizontally, not vertically */
+}
 .hero-typed {
   display: inline;
   white-space: nowrap;

@@ -209,11 +209,13 @@ export default function Home() {
         <div className="container">
           <h1 className="hero-title">
             We build digital products<br />
-            {'that '}
-            <span className="hero-typed" aria-hidden="true">
-              {typed}<span className="hero-cursor" aria-hidden="true" />
+            <span className="hero-typed-line">
+              {'that '}
+              <span className="hero-typed" aria-hidden="true">
+                {typed}<span className="hero-cursor" aria-hidden="true" />
+              </span>
+              <span className="sr-only" aria-live="polite" aria-atomic="true">{announced}</span>
             </span>
-            <span className="sr-only" aria-live="polite" aria-atomic="true">{announced}</span>
           </h1>
           <p className="hero-sub">
             Websites, software, and AI tools — built fast, built right.
