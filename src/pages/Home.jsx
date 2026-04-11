@@ -147,12 +147,27 @@ function useTypewriter() {
   return { displayed, announced: isComplete ? PHRASES[phraseIdx] : '' }
 }
 
-export default function Home() {
+function HeroTypedText() {
   const { displayed: typed, announced } = useTypewriter()
+  return (
+    <>
+      <span className="hero-typed" aria-hidden="true">
+        {typed}<span className="hero-cursor" aria-hidden="true" />
+      </span>
+      <span className="sr-only" aria-live="polite" aria-atomic="true">{announced}</span>
+    </>
+  )
+}
+
+export default function Home() {
+  const marqueeOuterRef = useRef(null)
   const marqueeRef     = useRef(null)
   const offsetRef      = useRef(0)
   const pausedRef      = useRef(false)
   const animRef        = useRef(null)
+  const runningRef     = useRef(false)
+  const inViewRef      = useRef(true)
+  const reduceMotionRef = useRef(false)
   const dragStartX     = useRef(null)
   const dragStartOff   = useRef(0)
   const isDragging     = useRef(false)
@@ -166,18 +181,83 @@ export default function Home() {
   }, [lightbox])
 
   useEffect(() => {
-    const el = marqueeRef.current
-    if (!el) return
-    const tick = () => {
-      if (!pausedRef.current) {
-        offsetRef.current += 0.7
-        if (offsetRef.current >= TOTAL_W) offsetRef.current -= TOTAL_W
-        el.style.transform = `translateX(-${offsetRef.current}px)`
+    const track = marqueeRef.current
+    const outer = marqueeOuterRef.current
+    if (!track || !outer) return
+
+    const canAnimate = () => (
+      !pausedRef.current &&
+      inViewRef.current &&
+      !reduceMotionRef.current &&
+      document.visibilityState === 'visible'
+    )
+
+    const stopAnimation = () => {
+      if (animRef.current) {
+        cancelAnimationFrame(animRef.current)
+        animRef.current = null
       }
+      runningRef.current = false
+    }
+
+    const tick = () => {
+      if (!canAnimate()) {
+        stopAnimation()
+        return
+      }
+      offsetRef.current += 0.7
+      if (offsetRef.current >= TOTAL_W) offsetRef.current -= TOTAL_W
+      track.style.transform = `translateX(-${offsetRef.current}px)`
       animRef.current = requestAnimationFrame(tick)
     }
-    animRef.current = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(animRef.current)
+
+    const startAnimation = () => {
+      if (runningRef.current || !canAnimate()) return
+      runningRef.current = true
+      animRef.current = requestAnimationFrame(tick)
+    }
+
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    reduceMotionRef.current = media.matches
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') startAnimation()
+      else stopAnimation()
+    }
+    const onMotionChange = (e) => {
+      reduceMotionRef.current = e.matches
+      if (e.matches) stopAnimation()
+      else startAnimation()
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        inViewRef.current = entry.isIntersecting
+        if (entry.isIntersecting) startAnimation()
+        else stopAnimation()
+      },
+      { threshold: 0.05 },
+    )
+
+    observer.observe(outer)
+    document.addEventListener('visibilitychange', onVisibilityChange)
+    media.addEventListener('change', onMotionChange)
+    startAnimation()
+
+    const onPointerDownCapture = () => stopAnimation()
+    const onPointerUpCapture = () => startAnimation()
+    outer.addEventListener('pointerdown', onPointerDownCapture, true)
+    outer.addEventListener('pointerup', onPointerUpCapture, true)
+    outer.addEventListener('pointercancel', onPointerUpCapture, true)
+
+    return () => {
+      outer.removeEventListener('pointerdown', onPointerDownCapture, true)
+      outer.removeEventListener('pointerup', onPointerUpCapture, true)
+      outer.removeEventListener('pointercancel', onPointerUpCapture, true)
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+      media.removeEventListener('change', onMotionChange)
+      stopAnimation()
+    }
   }, [])
 
   const onPointerDown = (e) => {
@@ -210,10 +290,7 @@ export default function Home() {
           <h1 className="hero-title">
             We build digital products<br className="hero-title-break" />
             {'that '}
-            <span className="hero-typed" aria-hidden="true">
-              {typed}<span className="hero-cursor" aria-hidden="true" />
-            </span>
-            <span className="sr-only" aria-live="polite" aria-atomic="true">{announced}</span>
+            <HeroTypedText />
           </h1>
           <p className="hero-sub">
             Websites, software, and AI tools — built fast, built right.
@@ -274,6 +351,7 @@ export default function Home() {
         </div>
 
         <div
+          ref={marqueeOuterRef}
           className="marquee-outer"
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}

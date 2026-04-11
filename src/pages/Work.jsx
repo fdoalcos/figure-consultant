@@ -107,15 +107,18 @@ export default function Work() {
               />
 
               {/* Optional hover GIF preview */}
-              {w.bgGif && (
+              {w.bgGif && hoveredSlug === w.slug && (
                 <img
                   key={`${w.slug}-${gifVersionBySlug[w.slug] ?? 0}`}
                   src={`${w.bgGif}?v=${gifVersionBySlug[w.slug] ?? 0}`}
                   alt=""
                   aria-hidden="true"
                   className="work-card-gif"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                   style={{
-                    opacity: hoveredSlug === w.slug ? 1 : 0,
+                    opacity: 1,
                   }}
                 />
               )}

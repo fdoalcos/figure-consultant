@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom'
 import { useEffect, lazy, Suspense } from 'react'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
@@ -35,6 +35,11 @@ function PageWrapper({ children }) {
   return <div className="page-fade">{children}</div>
 }
 
+function BlogsSlugRedirect() {
+  const { slug } = useParams()
+  return <Navigate to={`/blog/${slug}`} replace />
+}
+
 function AppRoutes() {
   return (
     <>
@@ -48,6 +53,8 @@ function AppRoutes() {
           <Route path="/work/:slug"    element={<PageWrapper><CaseStudyDetail /></PageWrapper>} />
           <Route path="/blog"          element={<PageWrapper><Suspense fallback={null}><BlogList /></Suspense></PageWrapper>} />
           <Route path="/blog/:slug"    element={<PageWrapper><Suspense fallback={null}><BlogPost /></Suspense></PageWrapper>} />
+          <Route path="/blogs"         element={<Navigate to="/blog" replace />} />
+          <Route path="/blogs/:slug"   element={<BlogsSlugRedirect />} />
           <Route path="/pricing"       element={<PageWrapper><Pricing /></PageWrapper>} />
           <Route path="/about"         element={<PageWrapper><About /></PageWrapper>} />
           <Route path="/contact"       element={<PageWrapper><Contact /></PageWrapper>} />
