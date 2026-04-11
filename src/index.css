@@ -189,6 +189,7 @@ nav {
   color: var(--black);
   max-width: 860px;
   margin: 0 auto 32px;
+  min-height: 3.45em; /* 3 lines max — any unused space sits at bottom as natural spacing */
 }
 /* Green accent — single detail, Sequoia-style */
 .hero-title .accent {
@@ -238,10 +239,6 @@ nav {
 .hero-cta:hover { opacity: 0.4; }
 
 /* ── TYPEWRITER ──────────────────────────── */
-.hero-typed-line {
-  display: block;
-  height: 2.3em; /* 2 lines × 1.15 line-height — phrases wrap inside, never overflow */
-}
 .hero-typed {
   display: inline;
   font-family: var(--font-serif);
@@ -1823,10 +1820,6 @@ footer {
   .cases-grid { grid-template-columns: 1fr; }
   .hero-sub { font-size: 15px; }
   .hero-title-break { display: none; } /* remove forced break — let text flow naturally */
-  .hero-typed-line {
-    height: auto;
-    min-height: 3.45em; /* 3 lines max at mobile font size — locks layout */
-  }
   .page-header { padding: 72px 0 60px; }
   .page-header-title { font-size: 44px; }
   .process-section { padding: 80px 0; }
