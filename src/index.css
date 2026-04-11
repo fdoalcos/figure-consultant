@@ -1822,6 +1822,7 @@ footer {
   .hero-proof-stat { font-size: 24px; }
   .cases-grid { grid-template-columns: 1fr; }
   .hero-sub { font-size: 15px; }
+  .hero-title-break { display: none; } /* remove forced break — let text flow naturally */
   .hero-typed-line {
     height: auto;
     min-height: 3.45em; /* 3 lines max at mobile font size — locks layout */
