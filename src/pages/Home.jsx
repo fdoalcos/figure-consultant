@@ -208,7 +208,8 @@ export default function Home() {
       <section className="hero">
         <div className="container">
           <h1 className="hero-title">
-            We build digital products that{' '}
+            We build digital products<br className="hero-title-break" />
+            {'that '}
             <span className="hero-typed" aria-hidden="true">
               {typed}<span className="hero-cursor" aria-hidden="true" />
             </span>

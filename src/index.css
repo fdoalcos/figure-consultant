@@ -189,6 +189,7 @@ nav {
   color: var(--black);
   max-width: 860px;
   margin: 0 auto 32px;
+  min-height: 3.45em; /* 3 lines max — any unused space sits at bottom as natural spacing */
 }
 /* Green accent — single detail, Sequoia-style */
 .hero-title .accent {
@@ -240,7 +241,6 @@ nav {
 /* ── TYPEWRITER ──────────────────────────── */
 .hero-typed {
   display: inline;
-  white-space: nowrap;
   font-family: var(--font-serif);
   font-style: italic;
   color: #2a6644;
@@ -1819,6 +1819,7 @@ footer {
   .hero-proof-stat { font-size: 24px; }
   .cases-grid { grid-template-columns: 1fr; }
   .hero-sub { font-size: 15px; }
+  .hero-title-break { display: none; } /* remove forced break — let text flow naturally */
   .page-header { padding: 72px 0 60px; }
   .page-header-title { font-size: 44px; }
   .process-section { padding: 80px 0; }
